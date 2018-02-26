@@ -164,7 +164,7 @@ public class FirebaseAuthPlugin implements MethodCallHandler {
     String newPassword = arguments.get("newPassword");
 
     firebaseAuth
-       .signInWithEmailAndPassword(email, oldPassword)
+       .signInWithEmailAndPassword(email, oldPassword);
 
     firebaseAuth
        .updatePassword(newPassword)
