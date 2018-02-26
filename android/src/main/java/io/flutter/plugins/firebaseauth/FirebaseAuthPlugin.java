@@ -61,6 +61,9 @@ public class FirebaseAuthPlugin implements MethodCallHandler {
       case "sendPasswordResetEmail":
         handleSendPasswordResetEmail(call, result);
         break;
+      case "updatePassword":
+        handleUpdatePassword(call, result);
+        break;
       case "signInWithEmailAndPassword":
         handleSignInWithEmailAndPassword(call, result);
         break;
@@ -151,6 +154,19 @@ public class FirebaseAuthPlugin implements MethodCallHandler {
     firebaseAuth
         .sendPasswordResetEmail(email)
         .addOnCompleteListener(new TaskVoidCompleteListener(result));
+  }
+
+  private void handleUpdatePassword(MethodCall call, final Result result) {
+    @SuppressWarnings("unchecked")
+    Map<String, String> arguments = (Map<String, String>) call.arguments;
+    String email = arguments.get("email");
+    String oldPassword = arguments.get("oldPassword");
+    String newPassword = arguments.get("newPassword");
+
+    firebaseAuth
+       .signInWithEmailAndPassword(email, oldPassword)
+       .updatePassword(newPassword)
+       .addOnCompleteListener(new SignInCompleteListener(result));
   }
 
   private void handleSignInWithEmailAndPassword(MethodCall call, final Result result) {
