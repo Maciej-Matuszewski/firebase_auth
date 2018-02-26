@@ -165,6 +165,8 @@ public class FirebaseAuthPlugin implements MethodCallHandler {
 
     firebaseAuth
        .signInWithEmailAndPassword(email, oldPassword)
+
+    firebaseAuth
        .updatePassword(newPassword)
        .addOnCompleteListener(new SignInCompleteListener(result));
   }
